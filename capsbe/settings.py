@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+#SECRET_KEY = os.getenv('SECRET_KEY')
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -103,9 +103,9 @@ WSGI_APPLICATION = 'capsbe.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
+    'default': dj_database_url.parse(
         # Replace this value with your local database's connection string.
-        default=os.getenv("DATABASE_URL"),
+        url=os.getenv("DATABASE_URL"),
         conn_max_age=600
     )
 }
