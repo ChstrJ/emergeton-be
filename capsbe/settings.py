@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import dj_database_url
+
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -29,7 +31,11 @@ SECRET_KEY = 'django-insecure-*$)_qqea)7z%k-514h)uw%@9)w0zweu@z3#d$5z#%!f&p_)sr&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -97,12 +103,12 @@ WSGI_APPLICATION = 'capsbe.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
